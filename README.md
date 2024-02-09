@@ -4,9 +4,32 @@
 
 Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## TODO: Installation
+## Get Started
 
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- Clone the repo
+- Download dependencies by running `npm install` in the terminal, in the root `buddyblast` folder
+  - make sure Node is installed and up-to-date, either manually or with Homebrew
+- Fire up the dev environment with `npm run dev`
+- Check out the prod environment by building `npm run build` and preview `npm run preview`
+
+## VSCode configuration
+
+To improve developer experience we commit the VSCode workspace configuration.
+
+### Extensions
+
+- Prettier is used for good default formatting to avoid non-functional merge conflicts
+- ESLint lets the team enjoy errors at compile rather than on runtime
+- Conventional Commits makes it easy for the team to write good commits
+- GitLab workflow makes working with GitLab easier
+- npm Intellisense gives us autocomplete for npm
+- Tailwind CSS Intellisense gives us autocomplete for Tailwind CSS
+
+### Settings/Good defaults
+
+- tabSize is set to 2 to avoid merge conflicts
+- formatOnSave is a good setting to enable in combination with Prettier as the default formatter
+- defaultFormatter is Prettier
 
 ## Tech-stack
 
