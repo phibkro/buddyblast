@@ -1,0 +1,36 @@
+import { useText } from "@/hooks/useText";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+
+import { cn } from "@/lib/utils";
+
+interface SearchFormProps {
+  className?: string;
+}
+function NameForm({ className }: SearchFormProps) {
+  const [textInput, setTextInput] = useState("");
+  const [name, setName] = useText("name", "Anonymous");
+  return (
+    <form
+      className={cn("flex gap-2 rounded-md bg-gray-100 p-2", className)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        setName(textInput);
+        // TODO send to database
+      }}
+    >
+      <Input
+        value={textInput}
+        placeholder="Enter you name here..."
+        onChange={(e) => {
+          setTextInput(e.currentTarget.value);
+          console.log(textInput);
+        }}
+      />
+      <Button>Submit</Button>
+    </form>
+  );
+}
+
+export { NameForm };
