@@ -1,4 +1,3 @@
-import { db } from "@/lib/firebase";
 import { getPosts } from "@/lib/getPosts";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { getUsers } from "../lib/getUsers";
@@ -8,7 +7,6 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  console.log(db);
   return (
     <div className="p-2">
       <h3>Welcome Home!</h3>
