@@ -1,3 +1,4 @@
+import { ComboBoxResponsive } from "@/components/ComboBoxResponsive";
 import { SearchForm } from "@/components/searchForm";
 import {
   Card,
@@ -7,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ComboBoxResponsive } from "@/components/ui/ComboBoxReactive";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
@@ -94,7 +94,7 @@ function Index() {
             <Switch id="favorites" />
             <Label htmlFor="favorites">Favorites</Label>
           </div>
-          <ComboBoxResponsive></ComboBoxResponsive>
+          <ComboBoxResponsive onChange={() => {}}></ComboBoxResponsive>
         </div>
         <div className="">
           {data.map((entry) => {

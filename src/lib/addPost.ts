@@ -1,17 +1,17 @@
 import { db } from "@/lib/firebase";
-import { doc, setDoc } from "@firebase/firestore";
+import { addDoc, collection } from "@firebase/firestore";
 
-export function addPost(
-    postId: number,
-    userId: string,
-    categories: string[],
-    postTitle: string,
-    postDescription: string,
-    rules: string[],
-    creationDate: Date,
-    reportCount: number,
-  ) {
-    setDoc(doc(db, "posts", postId.toString()), {
+export async function addPost(
+  userId: string,
+  categories: string[],
+  postTitle: string,
+  postDescription: string,
+  rules: string[],
+  creationDate: Date,
+  reportCount: number,
+) {
+  try {
+    await addDoc(collection(db, "posts"), {
       userId: userId,
       categories: categories,
       postTitle: postTitle,
@@ -20,4 +20,8 @@ export function addPost(
       creationDate: creationDate,
       reportCount: reportCount,
     });
+    console.log("Document successfully written!");
+  } catch (e) {
+    console.error("Error adding document: ", e);
   }
+}
