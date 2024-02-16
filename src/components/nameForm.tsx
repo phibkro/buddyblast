@@ -15,7 +15,7 @@ function NameForm({ className }: SearchFormProps) {
     <form
       className={cn("flex gap-2 rounded-md bg-gray-100 p-2", className)}
       onSubmit={(e) => {
-        e.preventDefault();
+        // e.preventDefault(); //TODO denne kan brukes for at vi ikke trenger å refreshe siden
         setName(textInput);
         // TODO send to database
       }}
