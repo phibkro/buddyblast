@@ -24,7 +24,7 @@ import { Label } from "./ui/label";
 
 export function UserComponent() {
   const [name] = useText("name");
-  const [category, setCategory] = useText("", "", sessionStorage);
+  const [category, setCategory] = useText("category", "", sessionStorage);
   const [title, setTitle] = useText("title", "", sessionStorage);
   const [description, setDescription] = useText(
     "description",
@@ -32,17 +32,17 @@ export function UserComponent() {
     sessionStorage,
   );
   const [rules, setRules] = useText("rules", "", sessionStorage);
-  console.log(sessionStorage);
+  // console.log(sessionStorage);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // e.preventDefault(); //kan skape problemer
     // TODO send new entry to database
     const tmpArray: [string] = [""];
     tmpArray[0] = category;
 
     const ruleArray = rules.split("\n");
-    addPost(name, tmpArray, title, description, ruleArray, new Date(), 0);
-    console.log("submitted");
+    await addPost(name, tmpArray, title, description, ruleArray, new Date(), 0);
+    // console.log("submitted");
     window.location.reload();
   };
   return (
