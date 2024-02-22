@@ -1,4 +1,3 @@
-import { useLoaderData } from "@tanstack/react-router";
 import {
   Card,
   CardContent,
@@ -8,8 +7,7 @@ import {
   CardTitle,
 } from "./ui/card";
 
-function PostsFeed() {
-  const data = useLoaderData({ from: "/", select: (data) => data });
+function PostsFeed({ data }: { data: any[] }) {
   return (
     <ul>
       {data.map((entry) => {
@@ -44,8 +42,8 @@ function PostsFeed() {
                 </li>
                 <li>
                   Date created:
-                  {entry.date_created ? (
-                    entry?.date_created
+                  {entry.creationDate ? (
+                    entry?.creationDate.toDate().toLocaleDateString()
                   ) : (
                     <span>No creation date</span>
                   )}
