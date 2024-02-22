@@ -15,8 +15,8 @@ function Root() {
           <Link to="/" className="[&.active]:font-bold">
             <Button>Home</Button>
           </Link>
-          <Link to="/spillelister" className="[&.active]:font-bold">
-            <Button>Spillelister</Button>
+          <Link to="/playlists" className="[&.active]:font-bold">
+            <Button>Playlists</Button>
           </Link>
         </div>
         <UserComponent />
