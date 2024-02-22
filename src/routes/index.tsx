@@ -6,7 +6,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { getPosts } from "@/lib/getPosts";
 import { Separator } from "@radix-ui/react-separator";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useLoaderData } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -14,6 +15,43 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const posts = useLoaderData({ from: "/", select: (data) => data });
+  const [sortOption, setSortOption] = useState("Random");
+  const [sortedPosts, setSortedPosts] = useState(posts);
+
+  const handleChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    setSortOption(event.currentTarget.value);
+  };
+
+  useEffect(() => {
+    console.log(sortOption);
+    switch (sortOption) {
+      case "Random":
+        console.log("Sorting by random");
+
+        setSortedPosts(posts.sort(() => Math.random() - 0.5));
+        break;
+
+      case "Newest":
+        console.log("Sorting by newest");
+
+        setSortedPosts(
+          posts.sort((a, b) => a.creationDate.seconds < b.creationDate.seconds),
+        );
+        break;
+      case "Popular":
+        console.log("Sorting by popular");
+
+        break;
+      default:
+        setSortedPosts(posts);
+        break;
+    }
+    setSortedPosts(posts);
+  }, [posts, sortOption]);
+
   return (
     <div className="p-2">
       <h3>Welcome Home!</h3>
@@ -24,17 +62,32 @@ function Index() {
       <div className="flex">
         <div>
           <Label>Search options</Label>
-          <RadioGroup defaultValue="Newest">
+          <RadioGroup defaultValue="Random">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Newest" id="Newest" />
+              <RadioGroupItem
+                value="Newest"
+                id="Newest"
+                checked={sortOption === "Newest"}
+                onClick={handleChange}
+              />
               <Label htmlFor="Newest">Newest</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Popular" id="Popular" />
+              <RadioGroupItem
+                value="Popular"
+                id="Popular"
+                checked={sortOption === "Popular"}
+                onClick={handleChange}
+              />
               <Label htmlFor="Popular">Popular</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Random" id="Random" />
+              <RadioGroupItem
+                value="Random"
+                id="Random"
+                checked={sortOption === "Random"}
+                onClick={handleChange}
+              />
               <Label htmlFor="Random">Random</Label>
             </div>
           </RadioGroup>
@@ -44,7 +97,7 @@ function Index() {
           </div>
           <ComboBoxResponsive></ComboBoxResponsive>
         </div>
-        <PostsFeed />
+        <PostsFeed data={sortedPosts} />
       </div>
       <Separator />
     </div>
