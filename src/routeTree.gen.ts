@@ -9,14 +9,14 @@ import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
 
-const SpillelisterLazyImport = createFileRoute('/spillelister')()
+const PlaylistsLazyImport = createFileRoute('/playlists')()
 
 // Create/Update Routes
 
-const SpillelisterLazyRoute = SpillelisterLazyImport.update({
-  path: '/spillelister',
+const PlaylistsLazyRoute = PlaylistsLazyImport.update({
+  path: '/playlists',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/spillelister.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/playlists.lazy').then((d) => d.Route))
 
 const IndexRoute = IndexImport.update({
   path: '/',
@@ -31,8 +31,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/spillelister': {
-      preLoaderRoute: typeof SpillelisterLazyImport
+    '/playlists': {
+      preLoaderRoute: typeof PlaylistsLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -40,7 +40,4 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
-  IndexRoute,
-  SpillelisterLazyRoute,
-])
+export const routeTree = rootRoute.addChildren([IndexRoute, PlaylistsLazyRoute])

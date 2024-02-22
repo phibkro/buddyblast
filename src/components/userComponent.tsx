@@ -71,7 +71,7 @@ export function UserComponent() {
                 </Label>
                 <Input
                   value={title}
-                  placeholder="Flasketuten"
+                  placeholder="Title here"
                   onChange={(e) => {
                     setTitle(e.currentTarget.value);
                   }}
@@ -79,8 +79,8 @@ export function UserComponent() {
               </div>
               <div className="flex grid-cols-4 items-center gap-4">
                 <TextareaWithLabel
-                  label={"description"}
-                  placeholder="yeet the bottle and do a dare!"
+                  label={"Description"}
+                  placeholder="Description here"
                   id="description"
                   onChange={(e) => {
                     setDescription(e.currentTarget.value);
@@ -89,8 +89,8 @@ export function UserComponent() {
               </div>
               <div className="flex grid-cols-4 items-center gap-4">
                 <TextareaWithLabel
-                  label={"rules"}
-                  placeholder="write the rules of your game here"
+                  label={"Rules"}
+                  placeholder="Write the rules of your game here"
                   id="description"
                   onChange={(e) => {
                     setRules(e.currentTarget.value);
