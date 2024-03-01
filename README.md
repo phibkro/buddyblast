@@ -147,6 +147,12 @@ Firebase is our chosen solution for backend. We would rather have Google manage 
 
 - [Firebase in 100 seconds](https://youtu.be/vAoB4VbhRzM?si=ksssPyZJHiuYsU_M)
 
+For local testing, do the following:
+
+- Run in teminal: "firebase emulators:start".
+- Then go to lib/firebase.ts and change the testLocalFlag variable to 1.
+- When done, you should be able to just run the app normally with "npm run dev" and it will be connected to the local firestore session.
+
 ## Commit messages
 
 We follow the conventional commits specifications described in <https://www.conventionalcommits.org/en/v1.0.0/>
