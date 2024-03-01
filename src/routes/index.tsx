@@ -1,6 +1,6 @@
+import { ComboBoxResponsive } from "@/components/ComboBoxResponsive";
 import PostsFeed from "@/components/PostsFeed";
 import { SearchForm } from "@/components/searchForm";
-import { ComboBoxResponsive } from "@/components/ui/ComboBoxReactive";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
