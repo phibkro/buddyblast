@@ -17,36 +17,24 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-type Status = {
+type Category = {
   value: string;
   label: string;
 };
 
 //Add your categories in the array below
-const statuses: Status[] = [
+const categories: Category[] = [
   {
-    value: "none",
-    label: "none",
+    value: "outdoors",
+    label: "outdoors",
   },
   {
-    value: "backlog",
-    label: "Backlog",
+    value: "indoors",
+    label: "indoors",
   },
   {
-    value: "todo",
-    label: "Todo",
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
+    value: "cards",
+    label: "cards",
   },
 ];
 
@@ -56,27 +44,26 @@ export function ComboBoxResponsive({
   onChange: (selectedCategory: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
-    null,
-  );
+  const [selectedCategory, setSelectedCategory] =
+    React.useState<Category | null>(null);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="w-[150px] justify-start">
-          {selectedStatus ? (
-            <>{selectedStatus.label}</>
+          {selectedCategory ? (
+            <>{selectedCategory.label}</>
           ) : (
             <>+ Select category</>
           )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
-        <StatusList
+        <CategoryList
           setOpen={setOpen}
-          setSelectedStatus={(selectedStatus) => {
-            setSelectedStatus(selectedStatus);
-            onChange(selectedStatus?.value || "");
+          setSelectedCategory={(selectedCategory) => {
+            setSelectedCategory(selectedCategory);
+            onChange(selectedCategory?.value || "");
           }}
         />
       </PopoverContent>
@@ -84,31 +71,32 @@ export function ComboBoxResponsive({
   );
 }
 
-function StatusList({
+function CategoryList({
   setOpen,
-  setSelectedStatus,
+  setSelectedCategory,
 }: {
   setOpen: (open: boolean) => void;
-  setSelectedStatus: (status: Status | null) => void;
+  setSelectedCategory: (Category: Category | null) => void;
 }) {
   return (
     <Command>
-      <CommandInput placeholder="Filter status..." />
+      <CommandInput placeholder="Filter Category..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {statuses.map((status) => (
+          {categories.map((Category) => (
             <CommandItem
-              key={status.value}
-              value={status.value}
+              key={Category.value}
+              value={Category.value}
               onSelect={(value) => {
-                setSelectedStatus(
-                  statuses.find((priority) => priority.value === value) || null,
+                setSelectedCategory(
+                  categories.find((priority) => priority.value === value) ||
+                    null,
                 );
                 setOpen(false);
               }}
             >
-              {status.label}
+              {Category.label}
             </CommandItem>
           ))}
         </CommandGroup>

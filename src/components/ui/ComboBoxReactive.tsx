@@ -17,83 +17,87 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-type Status = {
+type Category = {
   value: string;
   label: string;
 };
-
-const statuses: Status[] = [
+// note: the value field must be lowercase, otherwise it will not set the value of the selected category
+// the label is what will show, and can be set to whatever you want (maybe)
+const categories: Category[] = [
   {
     value: "none",
-    label: "none",
+    label: "None",
   },
   {
-    value: "backlog",
-    label: "Backlog",
+    value: "outdoors",
+    label: "Outdoors",
   },
   {
-    value: "todo",
-    label: "Todo",
+    value: "indoors",
+    label: "Indoors",
   },
   {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
+    value: "cards",
+    label: "Cards",
   },
 ];
 
 export function ComboBoxResponsive() {
   const [open, setOpen] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
-    null,
-  );
+  const [selectedCategory, setSelectedCategory] =
+    React.useState<Category | null>(null);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="w-[150px] justify-start">
-          {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+          {selectedCategory ? (
+            <>{selectedCategory.label}</>
+          ) : (
+            <>+ Set Category</>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
-        <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+        <CategoryList
+          setOpen={setOpen}
+          setSelectedCategory={setSelectedCategory}
+        />
       </PopoverContent>
     </Popover>
   );
 }
 
-function StatusList({
+function CategoryList({
   setOpen,
-  setSelectedStatus,
+  setSelectedCategory,
 }: {
   setOpen: (open: boolean) => void;
-  setSelectedStatus: (status: Status | null) => void;
+  setSelectedCategory: (Category: Category | null) => void;
 }) {
   return (
     <Command>
-      <CommandInput placeholder="Filter status..." />
+      <CommandInput placeholder="Filter Category..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {statuses.map((status) => (
+          {categories.map((Category) => (
             <CommandItem
-              key={status.value}
-              value={status.value}
+              key={Category.value}
+              value={Category.value}
               onSelect={(value) => {
-                setSelectedStatus(
-                  statuses.find((priority) => priority.value === value) || null,
-                );
+                if (value == "none") {
+                  setSelectedCategory(null);
+                } else {
+                  setSelectedCategory(
+                    categories.find((priority) => priority.value === value) ||
+                      null,
+                  );
+                }
                 setOpen(false);
               }}
             >
-              {status.label}
+              {Category.label}
             </CommandItem>
           ))}
         </CommandGroup>
