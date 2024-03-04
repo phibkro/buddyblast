@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { getPosts } from "@/lib/getPosts";
 import { Separator } from "@radix-ui/react-separator";
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -19,38 +19,39 @@ function Index() {
   const [sortOption, setSortOption] = useState("Random");
   const [filterCategory, setFilterCategory] = useState("");
 
-  let sortedPosts = posts;
-
   // filter the posts
-  const filteredPosts = posts
-    ? posts.filter(
-        (post) => post.category == filterCategory || filterCategory == "",
-      )
-    : [];
+  const filteredPosts = useMemo(() => {
+    return posts
+      ? posts.filter(
+          (post) => post.category == filterCategory || filterCategory == "",
+        )
+      : [];
+  }, [posts, filterCategory]);
 
   //sort the filtered posts
-  switch (sortOption) {
-    case "Random":
-      console.log("Sorting by random");
+  const sortedPosts = useMemo(() => {
+    switch (sortOption) {
+      case "Random":
+        console.log("Sorting by random");
 
-      sortedPosts = filteredPosts.sort(() => Math.random() - 0.5);
-      break;
+        return filteredPosts.toSorted(() => Math.random() - 0.5);
 
-    case "Newest":
-      console.log("Sorting by newest");
+      case "Newest":
+        console.log("Sorting by newest");
 
-      sortedPosts = filteredPosts.sort(
-        (a, b) => a.creationDate.seconds < b.creationDate.seconds,
-      );
-      break;
-    case "Popular":
-      // TODO
-      console.log("Sorting by popular");
-      break;
-    default:
-      sortedPosts = filteredPosts;
-      break;
-  }
+        return filteredPosts.toSorted(
+          (a, b) => a.creationDate.seconds < b.creationDate.seconds,
+        );
+
+      case "Popular":
+        // TODO
+        console.log("Sorting by popular");
+        return filteredPosts;
+
+      default:
+        return filteredPosts;
+    }
+  }, [filteredPosts, sortOption]);
 
   const handleChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
