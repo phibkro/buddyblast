@@ -1,6 +1,6 @@
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { Flag, Heart } from "lucide-react";
+import * as React from "react";
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -10,12 +10,12 @@ const Card = React.forwardRef<
     ref={ref}
     className={cn(
       "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className
+      className,
     )}
     {...props}
   />
-))
-Card.displayName = "Card"
+));
+Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
@@ -26,23 +26,57 @@ const CardHeader = React.forwardRef<
     className={cn("flex flex-col space-y-1.5 p-6", className)}
     {...props}
   />
-))
-CardHeader.displayName = "CardHeader"
+));
+CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-))
-CardTitle.displayName = "CardTitle"
+  React.HTMLAttributes<HTMLHeadingElement> & {
+    children?: React.ReactNode;
+    onHeartClick?: () => void;
+    onFlagClick?: () => void;
+  }
+>(({ children, className, onHeartClick, onFlagClick, ...props }, ref) => {
+  const [isHeartRed, setIsHeartRed] = React.useState(false);
+
+  const handleHeartClick = () => {
+    setIsHeartRed(!isHeartRed);
+    if (onHeartClick) {
+      onHeartClick();
+    }
+  };
+
+  const handleFlagClick = () => {
+    if (onFlagClick) {
+      onFlagClick();
+    }
+  };
+
+  return (
+    <h3
+      ref={ref}
+      className={cn(
+        "flex items-center justify-between text-2xl font-semibold leading-none tracking-tight",
+        className,
+      )}
+      {...props}
+    >
+      <span className="flex items-center">
+        {children}
+        <button onClick={handleHeartClick} className="ml-2 focus:outline-none">
+          <Heart className={cn({ "fill-red-500": isHeartRed })} />
+        </button>
+      </span>
+      <button
+        onClick={handleFlagClick}
+        className="inline-flex items-center focus:outline-none"
+      >
+        <Flag />
+      </button>
+    </h3>
+  );
+});
+CardTitle.displayName = "CardTitle";
 
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -53,16 +87,16 @@ const CardDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-CardDescription.displayName = "CardDescription"
+));
+CardDescription.displayName = "CardDescription";
 
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+));
+CardContent.displayName = "CardContent";
 
 const CardFooter = React.forwardRef<
   HTMLDivElement,
@@ -73,7 +107,14 @@ const CardFooter = React.forwardRef<
     className={cn("flex items-center p-6 pt-0", className)}
     {...props}
   />
-))
-CardFooter.displayName = "CardFooter"
+));
+CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+};

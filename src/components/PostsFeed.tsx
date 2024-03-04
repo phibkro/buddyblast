@@ -41,7 +41,11 @@ function PostsFeed({ data }: { data: any[] }) {
               <ul>
                 <li className="text-sm text-gray-600">
                   Category:
-                  {entry.category ? entry.category : <span>No category</span>}
+                  {entry.category ? (
+                    " " + entry?.category
+                  ) : (
+                    <span>No category</span>
+                  )}
                 </li>
                 <li className="text-sm text-gray-600">
                   Date created:

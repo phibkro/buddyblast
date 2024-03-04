@@ -37,18 +37,14 @@ export function UserComponent() {
   const handleSubmit = async () => {
     // e.preventDefault(); //kan skape problemer
     // TODO send new entry to database
-    const tmpArray: [string] = [""];
-    tmpArray[0] = category;
 
     const ruleArray = rules.split("\n");
-    await addPost(name, tmpArray, title, description, ruleArray, new Date(), 0);
+    await addPost(name, category, title, description, ruleArray, new Date(), 0);
     // console.log("submitted");
     window.location.reload();
   };
   return (
     <div className="flex">
-      {}
-
       {name ? (
         <Dialog>
           <DialogTrigger>

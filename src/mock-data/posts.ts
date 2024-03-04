@@ -1,6 +1,6 @@
 export interface Post {
   userId: string;
-  categories: string[];
+  category: string;
   postTitle: string;
   postDescription: string;
   rules: string[];
@@ -11,7 +11,7 @@ export interface Post {
 export const posts = [
   {
     userId: "Ola",
-    categories: Array("comedy"),
+    category: "outdoors",
     postTitle: "Hello world",
     postDescription: "Welcome to the world",
     rules: ["Gjør ditt", "gjør datt"],
@@ -21,7 +21,7 @@ export const posts = [
   },
   {
     userId: "Kari",
-    categories: Array("drama"),
+    category: "outdoors",
     postTitle: "The Great Adventure",
     postDescription: "Embark on a thrilling journey",
     rules: ["Follow the map", "Trust your instincts"],
@@ -31,7 +31,7 @@ export const posts = [
   },
   {
     userId: "Sysiphus",
-    categories: Array("action"),
+    category: "indoors",
     postTitle: "Mission Impossible",
     postDescription: "No task is too daunting",
     rules: ["Think fast", "Act decisively"],
@@ -41,7 +41,7 @@ export const posts = [
   },
   {
     userId: "Sherman",
-    categories: Array("comedy"),
+    category: "cards",
     postTitle: "The Pranksters",
     postDescription: "Get ready to laugh until it hurts",
     rules: ["Expect the unexpected", "Keep it light-hearted"],

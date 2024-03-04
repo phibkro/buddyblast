@@ -1,13 +1,13 @@
+import { ComboBoxResponsive } from "@/components/ComboBoxResponsive";
 import PostsFeed from "@/components/PostsFeed";
 import { SearchForm } from "@/components/searchForm";
-import { ComboBoxResponsive } from "@/components/ui/ComboBoxReactive";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { getPosts } from "@/lib/getPosts";
 import { Separator } from "@radix-ui/react-separator";
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -17,40 +17,47 @@ export const Route = createFileRoute("/")({
 function Index() {
   const posts = useLoaderData({ from: "/", select: (data) => data });
   const [sortOption, setSortOption] = useState("Random");
-  const [sortedPosts, setSortedPosts] = useState(posts);
+  const [filterCategory, setFilterCategory] = useState("");
+
+  // filter the posts
+  const filteredPosts = useMemo(() => {
+    return posts
+      ? posts.filter(
+          (post) => post.category == filterCategory || filterCategory == "",
+        )
+      : [];
+  }, [posts, filterCategory]);
+
+  //sort the filtered posts
+  const sortedPosts = useMemo(() => {
+    switch (sortOption) {
+      case "Random":
+        console.log("Sorting by random");
+
+        return filteredPosts.toSorted(() => Math.random() - 0.5);
+
+      case "Newest":
+        console.log("Sorting by newest");
+
+        return filteredPosts.toSorted(
+          (a, b) => a.creationDate.seconds < b.creationDate.seconds,
+        );
+
+      case "Popular":
+        // TODO
+        console.log("Sorting by popular");
+        return filteredPosts;
+
+      default:
+        return filteredPosts;
+    }
+  }, [filteredPosts, sortOption]);
 
   const handleChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setSortOption(event.currentTarget.value);
   };
-
-  useEffect(() => {
-    console.log(sortOption);
-    switch (sortOption) {
-      case "Random":
-        console.log("Sorting by random");
-
-        setSortedPosts(posts.sort(() => Math.random() - 0.5));
-        break;
-
-      case "Newest":
-        console.log("Sorting by newest");
-
-        setSortedPosts(
-          posts.sort((a, b) => a.creationDate.seconds < b.creationDate.seconds),
-        );
-        break;
-      case "Popular":
-        console.log("Sorting by popular");
-
-        break;
-      default:
-        setSortedPosts(posts);
-        break;
-    }
-    setSortedPosts(posts);
-  }, [posts, sortOption]);
 
   return (
     <div className="p-2" style={{ fontFamily: "Poppins, sans-serif" }}>
@@ -94,7 +101,9 @@ function Index() {
             <Switch id="favorites" />
             <Label htmlFor="favorites">Favorites</Label>
           </div>
-          <ComboBoxResponsive></ComboBoxResponsive>
+          <ComboBoxResponsive
+            onChange={(selectedCategory) => setFilterCategory(selectedCategory)}
+          />
         </div>
         <PostsFeed data={sortedPosts} />
       </div>

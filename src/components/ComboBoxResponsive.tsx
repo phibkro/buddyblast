@@ -22,26 +22,31 @@ type Category = {
   label: string;
 };
 
-//Add your categories in the array below
+// note: the value field must be lowercase, otherwise it will not set the value of the selected category
+// the label is what will show, and can be set to whatever you want (maybe)
 const categories: Category[] = [
   {
+    value: "none",
+    label: "None",
+  },
+  {
     value: "outdoors",
-    label: "outdoors",
+    label: "Outdoors",
   },
   {
     value: "indoors",
-    label: "indoors",
+    label: "Indoors",
   },
   {
     value: "cards",
-    label: "cards",
+    label: "Cards",
   },
 ];
 
 export function ComboBoxResponsive({
   onChange,
 }: {
-  onChange: (selectedCategory: string) => void;
+  onChange?: (selectedCategory: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);
   const [selectedCategory, setSelectedCategory] =
@@ -63,7 +68,9 @@ export function ComboBoxResponsive({
           setOpen={setOpen}
           setSelectedCategory={(selectedCategory) => {
             setSelectedCategory(selectedCategory);
-            onChange(selectedCategory?.value || "");
+            if (onChange) {
+              onChange(selectedCategory?.value || "");
+            }
           }}
         />
       </PopoverContent>
@@ -89,10 +96,14 @@ function CategoryList({
               key={Category.value}
               value={Category.value}
               onSelect={(value) => {
-                setSelectedCategory(
-                  categories.find((priority) => priority.value === value) ||
-                    null,
-                );
+                if (value == "none") {
+                  setSelectedCategory(null);
+                } else {
+                  setSelectedCategory(
+                    categories.find((priority) => priority.value === value) ||
+                      null,
+                  );
+                }
                 setOpen(false);
               }}
             >
