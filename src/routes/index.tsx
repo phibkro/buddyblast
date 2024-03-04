@@ -19,7 +19,7 @@ function Index() {
   const [sortOption, setSortOption] = useState("Random");
   const [filterCategory, setFilterCategory] = useState("");
 
-  let sortedPosts = [];
+  let sortedPosts = posts;
 
   // filter the posts
   const filteredPosts = posts
@@ -44,9 +44,8 @@ function Index() {
       );
       break;
     case "Popular":
-      console.log("Sorting by popular");
       // TODO
-      sortedPosts = filteredPosts;
+      console.log("Sorting by popular");
       break;
     default:
       sortedPosts = filteredPosts;
