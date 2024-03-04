@@ -5,7 +5,7 @@ export async function testSetup() {
   posts.forEach((post) => {
     addPost(
       post.userId,
-      post.categories,
+      post.category,
       post.postTitle,
       post.postDescription,
       post.rules,
