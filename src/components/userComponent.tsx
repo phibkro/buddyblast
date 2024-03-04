@@ -45,8 +45,6 @@ export function UserComponent() {
   };
   return (
     <div className="flex">
-      {}
-
       {name ? (
         <Dialog>
           <DialogTrigger>
