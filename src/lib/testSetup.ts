@@ -11,6 +11,7 @@ export async function testSetup() {
       post.rules,
       post.creationDate,
       post.reportCount,
+      post.favorites,
     );
   });
 }

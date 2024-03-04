@@ -9,6 +9,7 @@ export async function addPost(
   rules: string[],
   creationDate: Date,
   reportCount: number,
+  favorites: string[],
 ) {
   try {
     await addDoc(collection(db, "posts"), {
@@ -19,6 +20,7 @@ export async function addPost(
       rules: rules,
       creationDate: creationDate,
       reportCount: reportCount,
+      favorites: favorites,
     });
     console.log("Document successfully written!");
   } catch (e) {

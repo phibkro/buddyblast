@@ -27,7 +27,7 @@ export const posts = [
     rules: ["Follow the map", "Trust your instincts"],
     creationDate: new Date("10.12.2019"),
     reportCount: 0,
-    favorites: [],
+    favorites: ["mikkel"],
   },
   {
     userId: "Sysiphus",

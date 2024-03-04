@@ -4,6 +4,7 @@ import { SearchForm } from "@/components/searchForm";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import { useText } from "@/hooks/useText";
 import { getPosts } from "@/lib/getPosts";
 import { Separator } from "@radix-ui/react-separator";
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
@@ -18,6 +19,8 @@ function Index() {
   const posts = useLoaderData({ from: "/", select: (data) => data });
   const [sortOption, setSortOption] = useState("Random");
   const [filterCategory, setFilterCategory] = useState("");
+  const [favorited, setFavorited] = useState(false);
+  const [name] = useText("name");
 
   // filter the posts
   const filteredPosts = useMemo(() => {
@@ -28,30 +31,37 @@ function Index() {
       : [];
   }, [posts, filterCategory]);
 
+  const favoritePosts = useMemo(() => {
+    console.log(name);
+    return favorited
+      ? filteredPosts.filter((post) => post.favorites?.includes(name))
+      : filteredPosts;
+  }, [favorited, filteredPosts, name]);
+
   //sort the filtered posts
   const sortedPosts = useMemo(() => {
     switch (sortOption) {
       case "Random":
         console.log("Sorting by random");
 
-        return filteredPosts.toSorted(() => Math.random() - 0.5);
+        return favoritePosts.toSorted(() => Math.random() - 0.5);
 
       case "Newest":
         console.log("Sorting by newest");
 
-        return filteredPosts.toSorted(
+        return favoritePosts.toSorted(
           (a, b) => a.creationDate.seconds < b.creationDate.seconds,
         );
 
       case "Popular":
         // TODO
         console.log("Sorting by popular");
-        return filteredPosts;
+        return favoritePosts;
 
       default:
-        return filteredPosts;
+        return favoritePosts;
     }
-  }, [filteredPosts, sortOption]);
+  }, [favoritePosts, sortOption]);
 
   const handleChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -99,7 +109,12 @@ function Index() {
             </div>
           </RadioGroup>
           <div className="flex items-center space-x-2 p-2">
-            <Switch id="favorites" />
+            <Switch
+              id="favorites"
+              onClick={() => {
+                setFavorited((favorited) => !favorited);
+              }}
+            />
             <Label htmlFor="favorites">Favorites</Label>
           </div>
           <ComboBoxResponsive
