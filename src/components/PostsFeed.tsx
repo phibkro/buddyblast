@@ -38,7 +38,11 @@ function PostsFeed({ data }: { data: any[] }) {
               <ul>
                 <li>
                   Category:
-                  {entry.category ? entry?.category : <span>No category</span>}
+                  {entry.category ? (
+                    " " + entry?.category
+                  ) : (
+                    <span>No category</span>
+                  )}
                 </li>
                 <li>
                   Date created:

@@ -3,7 +3,7 @@ import { addDoc, collection } from "@firebase/firestore";
 
 export async function addPost(
   userId: string,
-  categories: string[],
+  category: string,
   postTitle: string,
   postDescription: string,
   rules: string[],
@@ -13,7 +13,7 @@ export async function addPost(
   try {
     await addDoc(collection(db, "posts"), {
       userId: userId,
-      categories: categories,
+      category: category,
       postTitle: postTitle,
       postDescription: postDescription,
       rules: rules,

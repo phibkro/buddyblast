@@ -17,28 +17,42 @@ export const Route = createFileRoute("/")({
 function Index() {
   const posts = useLoaderData({ from: "/", select: (data) => data });
   const [sortOption, setSortOption] = useState("Random");
-  const [sortedPosts, setSortedPosts] = useState(posts);
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+  const [sortedPosts, setSortedPosts] = useState(filteredPosts);
 
   const handleChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setSortOption(event.currentTarget.value);
   };
-
+  //Filter posts
   useEffect(() => {
-    console.log(sortOption);
+    console.log("filtering by: " + filterCategory);
+    setFilteredPosts(
+      posts.filter(
+        (post) => post.category == filterCategory || filterCategory == "",
+      ),
+    );
+  }, [filterCategory, posts]);
+  //another useEffect to sort when the favorite button is toggled TODO!
+  //sort the filtered posts
+  useEffect(() => {
+    console.log("sorting...");
     switch (sortOption) {
       case "Random":
         console.log("Sorting by random");
 
-        setSortedPosts(posts.sort(() => Math.random() - 0.5));
+        setSortedPosts(filteredPosts.sort(() => Math.random() - 0.5));
         break;
 
       case "Newest":
         console.log("Sorting by newest");
 
         setSortedPosts(
-          posts.sort((a, b) => a.creationDate.seconds < b.creationDate.seconds),
+          filteredPosts.sort(
+            (a, b) => a.creationDate.seconds < b.creationDate.seconds,
+          ),
         );
         break;
       case "Popular":
@@ -46,11 +60,11 @@ function Index() {
 
         break;
       default:
-        setSortedPosts(posts);
+        setSortedPosts(filteredPosts);
         break;
     }
-    setSortedPosts(posts);
-  }, [posts, sortOption]);
+    setSortedPosts(filteredPosts);
+  }, [filteredPosts, sortOption]);
 
   return (
     <div className="p-2">
@@ -95,7 +109,9 @@ function Index() {
             <Switch id="favorites" />
             <Label htmlFor="favorites">Favorites</Label>
           </div>
-          <ComboBoxResponsive></ComboBoxResponsive>
+          <ComboBoxResponsive
+            onChange={(selectedCategory) => setFilterCategory(selectedCategory)}
+          />
         </div>
         <PostsFeed data={sortedPosts} />
       </div>
