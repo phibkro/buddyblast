@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { getPosts } from "@/lib/getPosts";
 import { Separator } from "@radix-ui/react-separator";
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -18,53 +18,45 @@ function Index() {
   const posts = useLoaderData({ from: "/", select: (data) => data });
   const [sortOption, setSortOption] = useState("Random");
   const [filterCategory, setFilterCategory] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState(posts);
-  const [sortedPosts, setSortedPosts] = useState(filteredPosts);
+
+  let sortedPosts = posts;
+
+  // filter the posts
+  const filteredPosts = posts
+    ? posts.filter(
+        (post) => post.category == filterCategory || filterCategory == "",
+      )
+    : [];
+
+  //sort the filtered posts
+  switch (sortOption) {
+    case "Random":
+      console.log("Sorting by random");
+
+      sortedPosts = filteredPosts.sort(() => Math.random() - 0.5);
+      break;
+
+    case "Newest":
+      console.log("Sorting by newest");
+
+      sortedPosts = filteredPosts.sort(
+        (a, b) => a.creationDate.seconds < b.creationDate.seconds,
+      );
+      break;
+    case "Popular":
+      // TODO
+      console.log("Sorting by popular");
+      break;
+    default:
+      sortedPosts = filteredPosts;
+      break;
+  }
 
   const handleChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setSortOption(event.currentTarget.value);
   };
-  //Filter posts
-  useEffect(() => {
-    console.log("filtering by: " + filterCategory);
-    setFilteredPosts(
-      posts.filter(
-        (post) => post.category == filterCategory || filterCategory == "",
-      ),
-    );
-  }, [filterCategory, posts]);
-  //another useEffect to sort when the favorite button is toggled TODO!
-  //sort the filtered posts
-  useEffect(() => {
-    console.log("sorting...");
-    switch (sortOption) {
-      case "Random":
-        console.log("Sorting by random");
-
-        setSortedPosts(filteredPosts.sort(() => Math.random() - 0.5));
-        break;
-
-      case "Newest":
-        console.log("Sorting by newest");
-
-        setSortedPosts(
-          filteredPosts.sort(
-            (a, b) => a.creationDate.seconds < b.creationDate.seconds,
-          ),
-        );
-        break;
-      case "Popular":
-        console.log("Sorting by popular");
-
-        break;
-      default:
-        setSortedPosts(filteredPosts);
-        break;
-    }
-    setSortedPosts(filteredPosts);
-  }, [filteredPosts, sortOption]);
 
   return (
     <div className="p-2">
