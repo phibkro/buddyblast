@@ -10,15 +10,23 @@ export const Route = createRootRoute({
 function Root() {
   return (
     <>
-      <div className="flex justify-between">
+      <div
+        className="flex items-center justify-between bg-sky-100 p-2"
+        style={{ fontFamily: "Poppins, sans-serif" }}
+      >
         <div className="flex gap-2 p-1.5">
           <Link to="/" className="[&.active]:font-bold">
-            <Button>Home</Button>
+            <Button className="bg-sky-400 font-bold text-black hover:bg-sky-400 hover:text-white">
+              Home
+            </Button>
           </Link>
           <Link to="/playlists" className="[&.active]:font-bold">
-            <Button>Playlists</Button>
+            <Button className="bg-sky-400 font-bold text-black hover:bg-sky-400 hover:text-white">
+              Playlists
+            </Button>
           </Link>
         </div>
+        <h1 className="text-xl font-bold">BuddyBlast</h1>
         <UserComponent />
       </div>
       <Separator />

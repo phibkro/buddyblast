@@ -53,10 +53,9 @@ function Index() {
   }, [posts, sortOption]);
 
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
+    <div className="p-2" style={{ fontFamily: "Poppins, sans-serif" }}>
       <div>
-        <SearchForm />
+        <SearchForm className="neutral-100" />
       </div>
       <div className="p-5" />
       <div className="flex pl-5 pr-24">

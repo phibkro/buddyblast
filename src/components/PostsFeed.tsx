@@ -14,10 +14,10 @@ function PostsFeed({ data }: { data: any[] }) {
         return (
           <Card
             key={entry.id ? entry.id : Math.random()}
-            className="rounded-lg bg-white p-4 shadow-md"
+            className="rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
           >
             <CardHeader>
-              <CardTitle className="mb-2 text-lg font-bold">
+              <CardTitle className="text-xxl mb-2 font-bold text-sky-500">
                 {entry.postTitle ? entry.postTitle : <span>No title</span>}
               </CardTitle>
               <CardDescription className="text-gray-600">

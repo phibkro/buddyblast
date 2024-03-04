@@ -63,7 +63,12 @@ function SearchForm({ className }: SearchFormProps) {
             setTextInput(e.currentTarget.value)
           }
         />
-        <Button type="submit">Search</Button>
+        <Button
+          className="bg-sky-400 font-bold text-black hover:bg-sky-400 hover:text-white"
+          type="submit"
+        >
+          Search
+        </Button>
       </form>
       <ul>
         {searchResults.map((post: Post) => (

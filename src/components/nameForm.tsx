@@ -13,7 +13,7 @@ function NameForm({ className }: SearchFormProps) {
   const [name, setName] = useText("name", "Anonymous");
   return (
     <form
-      className={cn("flex gap-2 rounded-md bg-gray-100 p-2", className)}
+      className={cn("flex gap-2 rounded-md bg-sky-100 p-2", className)}
       onSubmit={(e) => {
         // e.preventDefault(); //TODO denne kan brukes for at vi ikke trenger å refreshe siden
         setName(textInput);
@@ -28,7 +28,9 @@ function NameForm({ className }: SearchFormProps) {
           console.log(textInput);
         }}
       />
-      <Button>Submit</Button>
+      <Button className="bg-sky-400 font-bold text-black hover:bg-sky-400 hover:text-white">
+        Submit
+      </Button>
     </form>
   );
 }
