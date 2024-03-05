@@ -44,7 +44,7 @@ function PostsFeed({ data }: { data: any[] }) {
                   {entry.category ? (
                     " " + entry?.category
                   ) : (
-                    <span>No category</span>
+                    <span> no category</span>
                   )}
                 </li>
                 <li className="text-sm text-gray-600">
