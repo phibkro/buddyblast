@@ -39,12 +39,24 @@ export function UserComponent() {
     // TODO send new entry to database
 
     const ruleArray = rules.split("\n");
-    await addPost(name, category, title, description, ruleArray, new Date(), 0);
+    await addPost(
+      name,
+      category,
+      title,
+      description,
+      ruleArray,
+      new Date(),
+      0,
+      [],
+    );
     // console.log("submitted");
+
     window.location.reload();
   };
   return (
     <div className="flex">
+      {}
+
       {name ? (
         <Dialog>
           <DialogTrigger>
