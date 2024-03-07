@@ -1,4 +1,5 @@
 import { useText } from "@/hooks/useText";
+import { incrementPostReportCount } from "@/lib/updatePost";
 import { updatePostFav } from "@/lib/updatePostFavs";
 import {
   Card,
@@ -19,6 +20,7 @@ function handleFavUpdate(entry: any, name: string) {
   const creationDate = entry.creationDate;
   const reportCount = entry.reportCount;
   const favorites = entry.favorites;
+
   //add or remove user from fav list
   favorites.includes(name)
     ? favorites.splice(favorites.indexOf(name), 1)
@@ -37,6 +39,10 @@ function handleFavUpdate(entry: any, name: string) {
     favorites,
   );
 }
+function handleFlagClick(docID: string) {
+  incrementPostReportCount(docID);
+}
+
 function PostsFeed({ data }: { data: any[] }) {
   const [name] = useText("name");
   return (
@@ -53,6 +59,7 @@ function PostsFeed({ data }: { data: any[] }) {
                 onHeartClick={() => {
                   handleFavUpdate(entry, name);
                 }}
+                onFlagClick={() => handleFlagClick(entry.id)}
               >
                 {entry.postTitle ? entry?.postTitle : <span>No title</span>}
               </CardTitle>

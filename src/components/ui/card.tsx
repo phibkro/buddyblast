@@ -84,14 +84,20 @@ const CardTitle = React.forwardRef<
             onClick={handleHeartClick}
             className="ml-2 focus:outline-none"
           >
-            <Heart className={cn({ "fill-red-500": isHeartRed })} />
+            <Heart
+              className={cn(
+                { "fill-red-500": isHeartRed },
+                "transition-colors hover:border-opacity-100 hover:bg-primary/10",
+                className,
+              )}
+            />
           </button>
         </span>
         <button
           onClick={handleFlagClick}
           className="inline-flex items-center focus:outline-none"
         >
-          <Flag />
+          <Flag className="rounded transition-colors hover:border-opacity-100 hover:bg-primary/10" />
         </button>
       </h3>
     );
