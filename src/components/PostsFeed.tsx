@@ -39,8 +39,8 @@ function handleFavUpdate(entry: any, name: string) {
     favorites,
   );
 }
-function handleFlagClick(docID: string) {
-  incrementPostReportCount(docID);
+function handleFlagClick(docID: string, name: string) {
+  incrementPostReportCount(docID, name);
 }
 
 function PostsFeed({ data }: { data: any[] }) {
@@ -59,7 +59,7 @@ function PostsFeed({ data }: { data: any[] }) {
                 onHeartClick={() => {
                   handleFavUpdate(entry, name);
                 }}
-                onFlagClick={() => handleFlagClick(entry.id)}
+                onFlagClick={() => handleFlagClick(entry.id, name)}
               >
                 {entry.postTitle ? entry?.postTitle : <span>No title</span>}
               </CardTitle>
