@@ -22,7 +22,7 @@ function PostsFeed({ data }: { data: any[] }) {
               </CardTitle>
               <CardDescription className="text-gray-600">
                 {entry.postDescription ? (
-                  entry.postDescription
+                  entry?.postDescription
                 ) : (
                   <span>No description</span>
                 )}
@@ -50,7 +50,7 @@ function PostsFeed({ data }: { data: any[] }) {
                 <li className="text-sm text-gray-600">
                   Date created:
                   {entry.creationDate ? (
-                    entry.creationDate.toDate().toLocaleDateString()
+                    entry?.creationDate?.toDate().toLocaleDateString()
                   ) : (
                     <span>No creation date</span>
                   )}
