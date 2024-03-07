@@ -70,17 +70,16 @@ function Index() {
   };
 
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
+    <div className="p-2" style={{ fontFamily: "Poppins, sans-serif" }}>
       <div>
-        <SearchForm />
+        <SearchForm className="neutral-100" />
       </div>
-      <div className="p-10" />
-      <div className="flex">
-        <div>
-          <Label>Search options</Label>
+      <div className="p-5" />
+      <div className="flex pl-5 pr-24">
+        <div className="pr-5">
+          <Label className="text-lg">Search options</Label>
           <RadioGroup defaultValue="Random">
-            <div className="flex items-center space-x-2">
+            <div className="mt-2 flex items-center space-x-2">
               <RadioGroupItem
                 value="Newest"
                 id="Newest"
