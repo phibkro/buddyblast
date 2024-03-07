@@ -35,47 +35,64 @@ const CardTitle = React.forwardRef<
     children?: React.ReactNode;
     onHeartClick?: () => void;
     onFlagClick?: () => void;
+    defaultHeartState?: boolean;
   }
->(({ children, className, onHeartClick, onFlagClick, ...props }, ref) => {
-  const [isHeartRed, setIsHeartRed] = React.useState(false);
+>(
+  (
+    {
+      children,
+      className,
+      onHeartClick,
+      onFlagClick,
+      defaultHeartState,
+      ...props
+    },
+    ref,
+  ) => {
+    const [isHeartRed, setIsHeartRed] = React.useState(defaultHeartState);
+    console.log(defaultHeartState);
 
-  const handleHeartClick = () => {
-    setIsHeartRed(!isHeartRed);
-    if (onHeartClick) {
-      onHeartClick();
-    }
-  };
+    const handleHeartClick = () => {
+      setIsHeartRed(!isHeartRed);
+      if (onHeartClick) {
+        onHeartClick();
+      }
+    };
 
-  const handleFlagClick = () => {
-    if (onFlagClick) {
-      onFlagClick();
-    }
-  };
+    const handleFlagClick = () => {
+      if (onFlagClick) {
+        onFlagClick();
+      }
+    };
 
-  return (
-    <h3
-      ref={ref}
-      className={cn(
-        "flex items-center justify-between text-2xl font-semibold leading-none tracking-tight",
-        className,
-      )}
-      {...props}
-    >
-      <span className="flex items-center">
-        {children}
-        <button onClick={handleHeartClick} className="ml-2 focus:outline-none">
-          <Heart className={cn({ "fill-red-500": isHeartRed })} />
-        </button>
-      </span>
-      <button
-        onClick={handleFlagClick}
-        className="inline-flex items-center focus:outline-none"
+    return (
+      <h3
+        ref={ref}
+        className={cn(
+          "flex items-center justify-between text-2xl font-semibold leading-none tracking-tight",
+          className,
+        )}
+        {...props}
       >
-        <Flag />
-      </button>
-    </h3>
-  );
-});
+        <span className="flex items-center">
+          {children}
+          <button
+            onClick={handleHeartClick}
+            className="ml-2 focus:outline-none"
+          >
+            <Heart className={cn({ "fill-red-500": isHeartRed })} />
+          </button>
+        </span>
+        <button
+          onClick={handleFlagClick}
+          className="inline-flex items-center focus:outline-none"
+        >
+          <Flag />
+        </button>
+      </h3>
+    );
+  },
+);
 CardTitle.displayName = "CardTitle";
 
 const CardDescription = React.forwardRef<

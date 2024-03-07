@@ -1,3 +1,4 @@
+import { useText } from "@/hooks/useText";
 import {
   Card,
   CardContent,
@@ -8,6 +9,8 @@ import {
 } from "./ui/card";
 
 function PostsFeed({ data }: { data: any[] }) {
+  const [name] = useText("name");
+  console.log("name" + name);
   return (
     <ul className="grid gap-5 lg:grid-cols-2">
       {data.map((entry) => {
@@ -17,8 +20,8 @@ function PostsFeed({ data }: { data: any[] }) {
             className="rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
           >
             <CardHeader>
-              <CardTitle className="text-xxl mb-2 font-bold text-sky-500">
-                {entry.postTitle ? entry.postTitle : <span>No title</span>}
+              <CardTitle defaultHeartState={entry.favorites?.includes(name)}>
+                {entry.postTitle ? entry?.postTitle : <span>No title</span>}
               </CardTitle>
               <CardDescription className="text-gray-600">
                 {entry.postDescription ? (
