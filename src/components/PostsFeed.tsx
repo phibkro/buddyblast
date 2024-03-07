@@ -45,7 +45,7 @@ function PostsFeed({ data }: { data: any[] }) {
         return (
           <Card
             key={entry.id ? entry.id : Math.random()}
-            className="rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
+            className="flex h-full flex-col rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
           >
             <CardHeader>
               <CardTitle
@@ -73,7 +73,7 @@ function PostsFeed({ data }: { data: any[] }) {
                 )}
               </ul>
             </CardContent>
-            <CardFooter className="mt-4">
+            <CardFooter className="mt-auto justify-self-end">
               <ul>
                 <li className="text-sm text-gray-600">
                   Category:
