@@ -17,7 +17,7 @@ export const posts = [
     rules: ["Gjør ditt", "gjør datt"],
     creationDate: new Date("07.07.2001"),
     reportCount: 0,
-    favorites: [],
+    favorites: ["oops"],
   },
   {
     userId: "Kari",
@@ -27,7 +27,7 @@ export const posts = [
     rules: ["Follow the map", "Trust your instincts"],
     creationDate: new Date("10.12.2019"),
     reportCount: 0,
-    favorites: ["mikkel"],
+    favorites: [],
   },
   {
     userId: "Sysiphus",
