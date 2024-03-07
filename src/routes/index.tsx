@@ -22,15 +22,21 @@ function Index() {
   const [favorited, setFavorited] = useState(false);
   const [name] = useText("name");
 
-  // filter the posts
+  // filter the posts by report count (less than 3)
+  const nonReportedPosts = useMemo(() => {
+    return posts ? posts.filter((post) => post.reportCount < 3) : [];
+  }, [posts]);
+
+  // filter the posts by category
   const filteredPosts = useMemo(() => {
-    return posts
-      ? posts.filter(
+    return nonReportedPosts
+      ? nonReportedPosts.filter(
           (post) => post.category == filterCategory || filterCategory == "",
         )
       : [];
-  }, [posts, filterCategory]);
+  }, [nonReportedPosts, filterCategory]);
 
+  // filter posts by favorites
   const favoritePosts = useMemo(() => {
     console.log(name);
     return favorited
