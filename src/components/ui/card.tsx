@@ -1,3 +1,4 @@
+import { useText } from "@/hooks/useText";
 import { cn } from "@/lib/utils";
 import { Flag, Heart } from "lucide-react";
 import * as React from "react";
@@ -51,11 +52,14 @@ const CardTitle = React.forwardRef<
   ) => {
     const [isHeartRed, setIsHeartRed] = React.useState(defaultHeartState);
     console.log(defaultHeartState);
+    const [name] = useText("name");
 
     const handleHeartClick = () => {
-      setIsHeartRed(!isHeartRed);
-      if (onHeartClick) {
-        onHeartClick();
+      if (name) {
+        setIsHeartRed(!isHeartRed);
+        if (onHeartClick) {
+          onHeartClick();
+        }
       }
     };
 

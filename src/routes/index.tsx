@@ -38,7 +38,7 @@ function Index() {
 
   // filter posts by favorites
   const favoritePosts = useMemo(() => {
-    console.log(name);
+    // console.log(name);
     return favorited
       ? filteredPosts.filter((post) => post.favorites?.includes(name))
       : filteredPosts;

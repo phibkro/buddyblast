@@ -1,4 +1,5 @@
 import { useText } from "@/hooks/useText";
+import { updatePostFav } from "@/lib/updatePostFavs";
 import {
   Card,
   CardContent,
@@ -8,9 +9,36 @@ import {
   CardTitle,
 } from "./ui/card";
 
+function handleFavUpdate(entry: any, name: string) {
+  const docID = entry.id;
+  const userId = entry.userId;
+  const category = entry.category;
+  const postTitle = entry.postTitle;
+  const postDescription = entry.postDescription;
+  const rules = entry.rules;
+  const creationDate = entry.creationDate;
+  const reportCount = entry.reportCount;
+  const favorites = entry.favorites;
+  //add or remove user from fav list
+  favorites.includes(name)
+    ? favorites.splice(favorites.indexOf(name), 1)
+    : favorites.push(name);
+  entry.favorites = favorites;
+
+  updatePostFav(
+    docID,
+    userId,
+    category,
+    postTitle,
+    postDescription,
+    rules,
+    creationDate,
+    reportCount,
+    favorites,
+  );
+}
 function PostsFeed({ data }: { data: any[] }) {
   const [name] = useText("name");
-  console.log("name" + name);
   return (
     <ul className="grid gap-5 lg:grid-cols-2">
       {data.map((entry) => {
@@ -20,7 +48,12 @@ function PostsFeed({ data }: { data: any[] }) {
             className="rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
           >
             <CardHeader>
-              <CardTitle defaultHeartState={entry.favorites?.includes(name)}>
+              <CardTitle
+                defaultHeartState={entry.favorites?.includes(name)}
+                onHeartClick={() => {
+                  handleFavUpdate(entry, name);
+                }}
+              >
                 {entry.postTitle ? entry?.postTitle : <span>No title</span>}
               </CardTitle>
               <CardDescription className="text-gray-600">

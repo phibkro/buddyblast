@@ -25,7 +25,7 @@ function NameForm({ className }: SearchFormProps) {
         placeholder="Enter you name here..."
         onChange={(e) => {
           setTextInput(e.currentTarget.value);
-          console.log(textInput);
+          // console.log(textInput);
         }}
       />
       <Button className="bg-sky-400 font-bold text-black hover:bg-sky-400 hover:text-white">
