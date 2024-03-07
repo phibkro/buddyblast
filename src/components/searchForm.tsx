@@ -20,7 +20,7 @@ interface Post {
   postDescription: string;
   rules: string[];
   date_created: string;
-  reports: string[];
+  reports: number;
 }
 
 interface SearchFormProps {
