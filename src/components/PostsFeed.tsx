@@ -1,6 +1,7 @@
 import { useText } from "@/hooks/useText";
 import { incrementPostReportCount } from "@/lib/updatePost";
 import { updatePostFav } from "@/lib/updatePostFavs";
+import { Link } from "@tanstack/react-router";
 import {
   Card,
   CardContent,
@@ -61,7 +62,14 @@ function PostsFeed({ data }: { data: any[] }) {
                 }}
                 onFlagClick={() => handleFlagClick(entry.id, name)}
               >
-                {entry.postTitle ? entry?.postTitle : <span>No title</span>}
+                {/* {entry.postTitle ? entry?.postTitle : <span>No title</span>} */}
+                {entry.postTitle ? (
+                  <Link to={`/post`} search={{ post: entry.id }}>
+                    <span>{entry?.postTitle}</span>
+                  </Link>
+                ) : (
+                  <span>No title</span>
+                )}
               </CardTitle>
               <CardDescription className="text-gray-600">
                 {entry.postDescription ? (

@@ -1,5 +1,6 @@
 import { db } from "@/lib/firebase";
 import { collection, getDocs } from "@firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 export async function getPosts() {
   const postsCollection = collection(db, "posts");
   const querySnapshot = await getDocs(postsCollection);
@@ -10,4 +11,10 @@ export async function getPosts() {
   console.log("posts:");
   console.log(posts);
   return posts;
+}
+
+export async function getPost(id: string) {
+  const docref = doc(db, "posts", id);
+  const docSnap = await getDoc(docref);
+  return docSnap.data();
 }
