@@ -56,7 +56,7 @@ function Index() {
         console.log("Sorting by newest");
 
         return favoritePosts.toSorted(
-          (a, b) => a.creationDate.seconds < b.creationDate.seconds,
+          (a, b) => b.creationDate.seconds - a.creationDate.seconds,
         );
 
       case "Popular":
