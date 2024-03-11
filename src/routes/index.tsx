@@ -60,12 +60,9 @@ function Index() {
         );
 
       case "Popular":
-        // TODO
-        console.log("Sorting by popular");
-        return favoritePosts;
-
-      default:
-        return favoritePosts;
+        return favoritePosts.toSorted(
+          (a, b) => b.favorites.length - a.favorites.length,
+        );
     }
   }, [favoritePosts, sortOption]);
 
