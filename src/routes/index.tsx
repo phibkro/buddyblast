@@ -1,6 +1,7 @@
 import { ComboBoxResponsive } from "@/components/ComboBoxResponsive";
 import PostsFeed from "@/components/PostsFeed";
-import { SearchForm } from "@/components/searchForm";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
@@ -21,11 +22,31 @@ function Index() {
   const [filterCategory, setFilterCategory] = useState("");
   const [favorited, setFavorited] = useState(false);
   const [name] = useText("name");
+  const [textInput, setTextInput] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!textInput.trim() && !searchQuery) return;
+    setSearchQuery(textInput.trim().toLocaleLowerCase());
+  };
+
+  const searchFilteredPosts = useMemo(() => {
+    return posts
+      ? posts.filter((post) =>
+          post?.postTitle
+            .toLowerCase()
+            .includes(searchQuery.toLocaleLowerCase()),
+        )
+      : [];
+  }, [posts, searchQuery]);
 
   // filter the posts by report count (less than 3)
   const nonReportedPosts = useMemo(() => {
-    return posts ? posts.filter((post) => post.reportCount < 3) : [];
-  }, [posts]);
+    return searchFilteredPosts
+      ? searchFilteredPosts.filter((post) => post.reportCount < 3)
+      : [];
+  }, [searchFilteredPosts]);
 
   // filter the posts by category
   const filteredPosts = useMemo(() => {
@@ -78,7 +99,24 @@ function Index() {
   return (
     <div className="p-2" style={{ fontFamily: "Poppins, sans-serif" }}>
       <div>
-        <SearchForm className="neutral-100" />
+        <form
+          className="neutral-100 flex gap-2 rounded-md bg-gray-100 p-2"
+          onSubmit={handleSearch}
+        >
+          <Input
+            value={textInput}
+            placeholder="Search posts..."
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTextInput(e.currentTarget.value)
+            }
+          />
+          <Button
+            className="bg-sky-400 font-bold text-black hover:bg-sky-400 hover:text-white"
+            type="submit"
+          >
+            Search
+          </Button>
+        </form>
       </div>
       <div className="p-5" />
       <div className="flex pl-5 pr-24">
