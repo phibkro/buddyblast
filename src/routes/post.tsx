@@ -1,4 +1,5 @@
 import PostsFeed from "@/components/PostsFeed";
+import { Timer } from "@/components/timer";
 import { getPost } from "@/lib/getPosts";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
@@ -31,9 +32,15 @@ export function Post() {
   }
 
   return (
-    <div className="ml-5 flex justify-between">
-      {/* TODO make cusom component to display post/timer/rating and whatever*/}
-      <PostsFeed data={[post]} />
+    <div>
+      {" "}
+      <div className="ml-5 flex justify-between">
+        {/* TODO make cusom component to display post/timer/rating and whatever*/}
+        <PostsFeed data={[post]} />
+      </div>
+      <div>
+        <Timer startTime={60} isPLaying={false} />
+      </div>
     </div>
   );
 }
