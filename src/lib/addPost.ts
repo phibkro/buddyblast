@@ -10,6 +10,7 @@ export async function addPost(
   creationDate: Date,
   reportCount: number,
   favorites: string[],
+  defaultTime: number,
 ) {
   try {
     await addDoc(collection(db, "posts"), {
@@ -21,6 +22,7 @@ export async function addPost(
       creationDate: creationDate,
       reportCount: reportCount,
       favorites: favorites,
+      defaultTime: defaultTime,
     });
     console.log("Document successfully written!");
   } catch (e) {

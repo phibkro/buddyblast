@@ -6,6 +6,8 @@ export interface Post {
   rules: string[];
   creationDate: string;
   reportCount: string[];
+  favorites: string[];
+  defaultTime: number;
 }
 //note Date type need american format MM/DD/YYYY
 export const posts = [
@@ -18,6 +20,7 @@ export const posts = [
     creationDate: new Date("07.07.2001"),
     reportCount: 0,
     favorites: ["oops"],
+    defaultTime: 120,
   },
   {
     userId: "Kari",
@@ -28,6 +31,7 @@ export const posts = [
     creationDate: new Date("10.12.2019"),
     reportCount: 0,
     favorites: [],
+    defaultTime: 300,
   },
   {
     userId: "Sysiphus",
@@ -38,6 +42,7 @@ export const posts = [
     creationDate: new Date("05.03.2020"),
     reportCount: 0,
     favorites: [],
+    defaultTime: 60,
   },
   {
     userId: "Sherman",
@@ -48,5 +53,6 @@ export const posts = [
     creationDate: new Date("09.20.2022"),
     reportCount: 0,
     favorites: [],
+    defaultTime: 180,
   },
 ];

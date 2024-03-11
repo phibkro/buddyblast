@@ -12,6 +12,7 @@ export async function testSetup() {
       post.creationDate,
       post.reportCount,
       post.favorites,
+      post.defaultTime,
     );
   });
 }
