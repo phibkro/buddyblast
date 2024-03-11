@@ -37,7 +37,7 @@ export function Post() {
         <SinglePost entry={post} />
       </div>
       <div>
-        <Timer startTime={60} isPLaying={false} />
+        <Timer startTime={post.defaultTime} isPLaying={false} />
       </div>
     </div>
   );
