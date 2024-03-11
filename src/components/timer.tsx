@@ -10,7 +10,7 @@ export function Timer({
   dafaultPlaying: boolean;
 }) {
   const [isPlaying, setIsPlaying] = useState(dafaultPlaying);
-  const [minutes, setMinutes] = useState(startTime / 60);
+  const [minutes, setMinutes] = useState(Math.floor(startTime / 60));
   const [seconds, setSeconds] = useState(startTime % 60);
   const [time, setTime] = useState(startTime);
   const [key, setKey] = useState(0); // Add a key state
