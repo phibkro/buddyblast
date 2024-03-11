@@ -73,7 +73,7 @@ export function Timer({
         <Button
           onClick={() => {
             setIsPlaying(false);
-            setMinutes(startTime / 60);
+            setMinutes(Math.floor(startTime / 60));
             setSeconds(startTime % 60);
             setKey((prevKey) => prevKey + 1); // Increment key to reset the timer
           }}
