@@ -37,6 +37,8 @@ const CardTitle = React.forwardRef<
     onHeartClick?: () => void;
     onFlagClick?: () => void;
     defaultHeartState?: boolean;
+    defaultFlagState?: boolean;
+    reportCount: number;
   }
 >(
   (
@@ -46,12 +48,17 @@ const CardTitle = React.forwardRef<
       onHeartClick,
       onFlagClick,
       defaultHeartState,
+      defaultFlagState,
+      reportCount: initialReportCount,
       ...props
     },
     ref,
   ) => {
     const [isHeartRed, setIsHeartRed] = React.useState(defaultHeartState);
-    console.log(defaultHeartState);
+    const [isFlagFilled, setIsFlagFilled] = React.useState(defaultFlagState);
+    const [flagTextVisible, setFlagTextVisible] = React.useState(false);
+    const [localReportCount, setLocalReportCount] =
+      React.useState(initialReportCount);
     const [name] = useText("name");
 
     const handleHeartClick = () => {
@@ -66,9 +73,26 @@ const CardTitle = React.forwardRef<
     const handleFlagClick = () => {
       if (onFlagClick) {
         onFlagClick();
+        if (name == "admin") {
+          setLocalReportCount((current) => current + 3);
+        } else {
+          setLocalReportCount((current) => current + 1);
+        }
       }
     };
 
+    const handleFlagMouseDown = () => {
+      setIsFlagFilled(true);
+      setFlagTextVisible(true);
+
+      setTimeout(() => {
+        setFlagTextVisible(false);
+      }, 2000);
+    };
+
+    const handleFlagMouseUp = () => {
+      setIsFlagFilled(false);
+    };
     return (
       <h3
         ref={ref}
@@ -93,11 +117,22 @@ const CardTitle = React.forwardRef<
             />
           </button>
         </span>
+
         <button
           onClick={handleFlagClick}
-          className="inline-flex items-center focus:outline-none"
+          onMouseDown={handleFlagMouseDown}
+          onMouseUp={handleFlagMouseUp}
+          onMouseLeave={handleFlagMouseUp}
+          className="transform px-4 py-3 text-red-500 outline-none transition-transform active:scale-75"
         >
-          <Flag className="rounded transition-colors hover:border-opacity-100 hover:bg-primary/10" />
+          <Flag
+            className={cn(
+              { "fill-red-500": isFlagFilled },
+              "transition-colors hover:border-opacity-100 hover:bg-primary/10",
+              className,
+            )}
+          />
+          <span className=" text-lg text-black">{localReportCount}</span>
         </button>
       </h3>
     );

@@ -22,7 +22,6 @@ function handleFavUpdate(entry: any, name: string) {
   const reportCount = entry.reportCount;
   const favorites = entry.favorites;
 
-  //add or remove user from fav list
   favorites.includes(name)
     ? favorites.splice(favorites.indexOf(name), 1)
     : favorites.push(name);
@@ -61,6 +60,7 @@ function PostsFeed({ data }: { data: any[] }) {
                   handleFavUpdate(entry, name);
                 }}
                 onFlagClick={() => handleFlagClick(entry.id, name)}
+                reportCount={entry.reportCount}
               >
                 {/* {entry.postTitle ? entry?.postTitle : <span>No title</span>} */}
                 {entry.postTitle ? (
