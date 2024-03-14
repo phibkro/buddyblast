@@ -46,7 +46,7 @@ export function Timer({
       </div>
       <div className="flex space-x-4 p-4">
         <input
-          className="w-[70px]"
+          className="w-[50%]"
           type="number"
           min={0}
           value={minutes || 0}
@@ -55,7 +55,7 @@ export function Timer({
           }}
         />
         <input
-          className="w-[70px]"
+          className="w-[50%]"
           type="number"
           max={59}
           min={0}
@@ -65,7 +65,7 @@ export function Timer({
       </div>
       <div className="flex space-x-4">
         <Button
-          className="w-[70px] bg-sky-900"
+          className="w-[50%] bg-sky-900"
           type="button"
           onClick={() => {
             setIsPlaying(!isPlaying);
@@ -74,7 +74,7 @@ export function Timer({
           {isPlaying ? "Pause" : "Start"}
         </Button>
         <Button
-          className="w-[70px] bg-sky-900"
+          className="w-[50%] bg-sky-900"
           onClick={() => {
             setIsPlaying(false);
             setMinutes(Math.floor(startTime / 60));
