@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const posts = useLoaderData({ from: "/", select: (data) => data });
-  const [sortOption, setSortOption] = useState("Random");
+  const [sortOption, setSortOption] = useState("Newest");
   const [filterCategory, setFilterCategory] = useState("");
   const [favorited, setFavorited] = useState(false);
   const [name] = useText("name");
