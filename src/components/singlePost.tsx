@@ -48,7 +48,7 @@ function SinglePost({ entry }: { entry: any }) {
   return (
     <Card
       key={entry.id ? entry.id : Math.random()}
-      className="flex h-full flex-col rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
+      className="flex h-full w-full flex-col rounded-lg border-2 border-sky-300 bg-sky-100 p-4 shadow-md"
     >
       <CardHeader>
         <CardTitle

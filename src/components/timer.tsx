@@ -25,7 +25,7 @@ export function Timer({
   }, [dafaultPlaying, minutes, seconds]);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <div>
         <CountdownCircleTimer
           key={key} // Add key prop here
@@ -44,8 +44,9 @@ export function Timer({
           )}
         </CountdownCircleTimer>
       </div>
-      <div>
+      <div className="flex space-x-4 p-4">
         <input
+          className="w-[50%]"
           type="number"
           min={0}
           value={minutes || 0}
@@ -54,6 +55,7 @@ export function Timer({
           }}
         />
         <input
+          className="w-[50%]"
           type="number"
           max={59}
           min={0}
@@ -61,8 +63,9 @@ export function Timer({
           onChange={(e) => setSeconds(parseInt(e.target.value))}
         />
       </div>
-      <div>
+      <div className="flex space-x-4">
         <Button
+          className="w-[50%] bg-sky-900"
           type="button"
           onClick={() => {
             setIsPlaying(!isPlaying);
@@ -71,6 +74,7 @@ export function Timer({
           {isPlaying ? "Pause" : "Start"}
         </Button>
         <Button
+          className="w-[50%] bg-sky-900"
           onClick={() => {
             setIsPlaying(false);
             setMinutes(Math.floor(startTime / 60));
