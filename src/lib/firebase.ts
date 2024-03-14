@@ -36,7 +36,7 @@ function getLocalFirestore() {
 const postsCollection = collection(db, "posts");
 const querySnapshot = await getDocs(postsCollection);
 
-if (querySnapshot.size === 0) {
+if (querySnapshot.size === 0 && localTestingFlag) {
   testSetup();
 }
 export { auth, db };
