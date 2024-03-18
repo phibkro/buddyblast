@@ -1,3 +1,4 @@
+import RatingForm from "@/components/ratingForm";
 import SinglePost from "@/components/singlePost";
 import { Timer } from "@/components/timer";
 import { getPost } from "@/lib/getPosts";
@@ -32,13 +33,18 @@ export function Post() {
   }
 
   return (
-    <div className="flex items-center p-24">
-      <div className="flex items-center justify-between space-x-20">
-        <SinglePost entry={post} />
-        <div className="flex flex-col items-center justify-between">
+    <div className="flex flex-col items-center justify-center space-y-8 p-24">
+      <div className="flex items-center justify-center space-x-20">
+        {/* SinglePost and Timer side by side */}
+        <SinglePost entry={post} id={postID} />
+        <div>
           <h1 className="pb-4 text-lg font-bold">COUNTDOWN</h1>
-          <Timer startTime={post.defaultTime} isPLaying={false} />
+          <Timer startTime={post.defaultTime} isPlaying={false} />
         </div>
+      </div>
+      <h1 className="text-lg font-bold">RATE THIS POST</h1>
+      <div className="w-full">
+        <RatingForm docID={postID} />
       </div>
     </div>
   );

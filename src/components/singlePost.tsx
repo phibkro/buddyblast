@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-function handleFavUpdate(entry: any, name: string) {
-  const docID = entry.id;
+function handleFavUpdate(entry: any,id: string, name: string) {
+  const docID = id;
   const userId = entry.userId;
   const category = entry.category;
   const postTitle = entry.postTitle;
@@ -42,7 +42,7 @@ function handleFlagClick(docID: string, name: string) {
   incrementPostReportCount(docID, name);
 }
 
-function SinglePost({ entry }: { entry: any }) {
+function SinglePost({ entry, id }: { entry: any, id: string}) {
   const [name] = useText("name");
 
   return (
@@ -54,9 +54,13 @@ function SinglePost({ entry }: { entry: any }) {
         <CardTitle
           defaultHeartState={entry.favorites?.includes(name)}
           onHeartClick={() => {
-            handleFavUpdate(entry, name);
+            handleFavUpdate(entry,id, name);
           }}
-          onFlagClick={() => handleFlagClick(entry.id, name)}
+          onFlagClick={() => {
+            handleFlagClick(id, name)
+          }}
+          
+          reportCount={entry.reportCount}
         >
           {/* {entry.postTitle ? entry?.postTitle : <span>No title</span>} */}
           {entry.postTitle ? (
