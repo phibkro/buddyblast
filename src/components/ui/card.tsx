@@ -2,7 +2,6 @@ import { useText } from "@/hooks/useText";
 import { cn } from "@/lib/utils";
 import { Flag, Heart } from "lucide-react";
 import * as React from "react";
-import { incrementPostReportCount } from "@/lib/updatePost";
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -39,7 +38,7 @@ const CardTitle = React.forwardRef<
     onFlagClick?: () => void;
     defaultHeartState?: boolean;
     defaultFlagState?: boolean;
-    reportCount: number;
+    reportCount?: number;
   }
 >(
   (
@@ -75,9 +74,9 @@ const CardTitle = React.forwardRef<
       if (onFlagClick) {
         onFlagClick();
         if (name == "admin") {
-          setLocalReportCount((current) => current + 3);
+          setLocalReportCount((current=0) => current + 3);
         } else {
-          setLocalReportCount((current) => current + 1);
+          setLocalReportCount((current=0) => current + 1);
         }
       }
     };
