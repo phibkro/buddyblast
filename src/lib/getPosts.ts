@@ -8,8 +8,6 @@ export async function getPosts() {
   const posts = querySnapshot.docs.map((doc) => {
     return { id: doc.id, ...doc.data() };
   });
-  console.log("posts:");
-  console.log(posts);
   return posts;
 }
 
