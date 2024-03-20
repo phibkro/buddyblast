@@ -1,3 +1,4 @@
+import RatingFeed from "@/components/ratingFeed";
 import RatingForm from "@/components/ratingForm";
 import SinglePost from "@/components/singlePost";
 import { Timer } from "@/components/timer";
@@ -18,7 +19,6 @@ export const Route = createFileRoute("/post")({
 export function Post() {
   const postID = Route.useSearch().post;
   const [post, setPost] = useState(null);
-
   useEffect(() => {
     async function fetchPost() {
       const fetchedPost = await getPost(postID);
@@ -45,6 +45,10 @@ export function Post() {
       <h1 className="text-lg font-bold">RATE THIS POST</h1>
       <div className="w-full">
         <RatingForm docID={postID} />
+      </div>
+      <h1>Reviews</h1>
+      <div className="w-full">
+        <RatingFeed data={post} />
       </div>
     </div>
   );
