@@ -44,7 +44,6 @@ const RatingForm: React.FC<RatingFormProps> = ({ docID }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(`Text: ${textValue}, Number: ${numberValue}`);
     addReview(docID, name, textValue, numberValue);
     setFormSubmitted(true);
 
