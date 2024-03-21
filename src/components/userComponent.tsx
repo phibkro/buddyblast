@@ -58,8 +58,6 @@ export function UserComponent() {
   };
   return (
     <div className="flex">
-      {}
-
       {name ? (
         <Dialog>
           <DialogTrigger>
@@ -95,7 +93,9 @@ export function UserComponent() {
                   id="description"
                   onChange={(e) => {
                     setDescription(e.currentTarget.value);
+                    console.log("description");
                   }}
+                  value={description}
                 />
               </div>
               <div className="flex grid-cols-4 items-center gap-4">
@@ -105,7 +105,9 @@ export function UserComponent() {
                   id="description"
                   onChange={(e) => {
                     setRules(e.currentTarget.value);
+                    console.log("rules");
                   }}
+                  value={rules}
                 />
               </div>
               <div>
